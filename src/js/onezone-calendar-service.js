@@ -6,9 +6,9 @@ angular.module('onezone-calendar.service', ['ionic'])
 
         /* Get start date for month (first day from first week of the month) */
         function getStartDate(date, mondayFirst) {
-            var startDate = new Date(date.getFullYear(), date.getMonth(), 1);
+            var position, startDate = new Date(date.getFullYear(), date.getMonth(), 1);
             if ((!mondayFirst && (date.getDay() !== 0 || date.getDate() !== 1)) || (mondayFirst && (date.getDay() !== 1 || date.getDate() !== 1))) {
-                var position = startDate.getDay() - mondayFirst;
+                position = startDate.getDay() - mondayFirst;
                 position = mondayFirst && position < 0 ? 6 : position;
                 startDate = new Date(date.getFullYear(), date.getMonth(), 1 - position);
             }
@@ -16,8 +16,34 @@ angular.module('onezone-calendar.service', ['ionic'])
             return startDate;
         }
 
+        function checkIfIsDisabled(date, disablePastDays, displayFrom, displayTo) {
+            var compareDate, currentDate, today = new Date();
+            currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            compareDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+            if (disablePastDays) {
+                if (compareDate < currentDate) {
+                    return true;
+                }
+            }
+
+            if (angular.isDefined(displayFrom)) {
+                if (compareDate < displayFrom) {
+                    return true;
+                }
+            }
+
+            if (angular.isDefined(displayTo)) {
+                if (compareDate > displayTo) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         /* Create week */
-        function createWeek(date, currentMonth) {
+        function createWeek(date, currentMonth, disablePastDays, displayFrom, displayTo) {
             var days = [];
             date = angular.copy(date);
 
@@ -29,7 +55,8 @@ angular.module('onezone-calendar.service', ['ionic'])
                     year: date.getFullYear(),
                     day: date.getDay(),
                     isToday: _sameDate(date, new Date()),
-                    isCurrentMonth: date.getMonth() === currentMonth.getMonth()
+                    isCurrentMonth: date.getMonth() === currentMonth.getMonth(),
+                    isDisabled: checkIfIsDisabled(date, disablePastDays, displayFrom, displayTo)
                 });
 
                 date = angular.copy(date);
@@ -122,16 +149,16 @@ angular.module('onezone-calendar.service', ['ionic'])
         };
 
         /* Create month calendar */
-        var _createMonth = function (month, mondayFirst) {
+        var _createMonth = function (createMonthParam) {
             var stopflag = false,
                 count = 0,
                 weeks = [];
-            var date = getStartDate(month, mondayFirst);
+            var date = getStartDate(createMonthParam.date, createMonthParam.mondayFirst);
             var monthIndex = date.getMonth();
 
             while (!stopflag) {
                 weeks.push({
-                    days: createWeek(date, month)
+                    days: createWeek(date, createMonthParam.date, createMonthParam.disablePastDays, createMonthParam.displayFrom, createMonthParam.displayTo)
                 });
 
                 date.setDate(date.getDate() + 7);

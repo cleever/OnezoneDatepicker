@@ -45,8 +45,8 @@
             <div class="col onezone-calendar-week" ng-repeat="dayOfTheWeek in daysOfTheWeek track by $index"> {{ dayOfTheWeek }}</div>
         </div>
         <div class="row" ng-repeat="week in month" on-swipe-right="previousMonth()" on-swipe-left="nextMonth()">
-            <div class="col" ng-repeat="day in week.days" ng-click="selectDate(day.fullDate)">
-                <div class="onezone-calendar-day" ng-class="{ 'onezone-calendar-current-day' : day.isToday, 'onezone-calendar-different-month' : !day.isCurrentMonth, 'onezone-calendar-active-day' : sameDate(day.fullDate, selectedDate) }">
+            <div class="col" ng-repeat="day in week.days" ng-click="selectDate(day.fullDate, day.isDisabled)">
+                <div class="onezone-calendar-day" ng-class="{ 'onezone-calendar-current-day' : day.isToday, 'onezone-calendar-different-month' : !day.isCurrentMonth || day.isDisabled, 'onezone-calendar-active-day' : sameDate(day.fullDate, selectedDate) }">
                     {{day.date}}
                 </div>
             </div>

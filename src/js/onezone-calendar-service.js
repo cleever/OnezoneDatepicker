@@ -1,4 +1,4 @@
-angular.module('onezone-calendar-service', ['ionic'])
+angular.module('onezone-calendar.service', ['ionic'])
     .factory('onezoneCalendarService', function () {
         'use strict';
 

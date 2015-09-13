@@ -1,4 +1,4 @@
-angular.module('onezone-calendar', ['ionic', 'onezone-calendar-service'])
+angular.module('onezone-calendar', ['ionic', 'onezone-calendar.templates', 'onezone-calendar.service'])
     .directive('onezoneCalendar', ['$ionicGesture', 'onezoneCalendarService', function ($ionicGesture, onezoneCalendarService) {
         'use strict';
 
@@ -130,6 +130,6 @@ angular.module('onezone-calendar', ['ionic', 'onezone-calendar-service'])
             scope: {
                 calendarObject: '=calendarObject'
             },
-            templateUrl: 'lib/onezone-calendar/src/templates/onezone-calendar.html'
+            templateUrl: 'onezone-calendar.html'
         };
     }]);

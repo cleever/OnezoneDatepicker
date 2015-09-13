@@ -4,7 +4,7 @@ angular.module('onezone-calendar.service', ['ionic'])
 
         var serviceFactory = {};
 
-        /* GET start date for month (first day from first week of the month) */
+        /* Get start date for month (first day from first week of the month) */
         function getStartDate(date, mondayFirst) {
             var position, startDate = new Date(date.getFullYear(), date.getMonth(), 1);
             if ((!mondayFirst && (date.getDay() !== 0 || date.getDate() !== 1)) || (mondayFirst && (date.getDay() !== 1 || date.getDate() !== 1))) {

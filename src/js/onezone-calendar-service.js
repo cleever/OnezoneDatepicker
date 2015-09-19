@@ -4,6 +4,14 @@ angular.module('onezone-calendar.service', ['ionic'])
 
         var serviceFactory = {};
 
+        function datesAreEquals(date, compareDate) {
+            if (angular.isDefined(date) && angular.isDate(date) && angular.isDefined(compareDate) && angular.isDate(compareDate)) {
+                return date.getDate() === compareDate.getDate() && date.getMonth() === compareDate.getMonth() && date.getFullYear() === compareDate.getFullYear();
+            }
+
+            return false;
+        }
+
         /* Get start date for month (first day from first week of the month) */
         function getStartDate(date, mondayFirst) {
             var position, startDate = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -16,13 +24,20 @@ angular.module('onezone-calendar.service', ['ionic'])
             return startDate;
         }
 
-        function checkIfIsDisabled(date, disablePastDays, displayFrom, displayTo) {
-            var compareDate, currentDate, today = new Date();
+        function checkIfIsDisabled(date, disablePastDays, disableWeekend, disableDates, displayFrom, displayTo) {
+            var compareDate, currentDate, day, disableDate, today = new Date();
             currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             compareDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
             if (disablePastDays) {
                 if (compareDate < currentDate) {
+                    return true;
+                }
+            }
+
+            if (disableWeekend) {
+                day = compareDate.getDay();
+                if (day === 0 || day === 6) {
                     return true;
                 }
             }
@@ -39,11 +54,20 @@ angular.module('onezone-calendar.service', ['ionic'])
                 }
             }
 
+            if (angular.isDefined(disableDates) && angular.isArray(disableDates)) {
+                for (var i = 0; i < disableDates.length; i++) {
+                    disableDate = new Date(disableDates[i].getFullYear(), disableDates[i].getMonth(), disableDates[i].getDate());
+                    if (datesAreEquals(disableDate, compareDate)) {
+                        return true;
+                    }
+                }
+            }
+
             return false;
         }
 
         /* Create week */
-        function createWeek(date, currentMonth, disablePastDays, displayFrom, displayTo) {
+        function createWeek(date, currentMonth, disablePastDays, disableWeekend, disableDates, displayFrom, displayTo) {
             var days = [];
             date = angular.copy(date);
 
@@ -56,7 +80,7 @@ angular.module('onezone-calendar.service', ['ionic'])
                     day: date.getDay(),
                     isToday: _sameDate(date, new Date()),
                     isCurrentMonth: date.getMonth() === currentMonth.getMonth(),
-                    isDisabled: checkIfIsDisabled(date, disablePastDays, displayFrom, displayTo)
+                    isDisabled: checkIfIsDisabled(date, disablePastDays, disableWeekend, disableDates, displayFrom, displayTo)
                 });
 
                 date = angular.copy(date);
@@ -65,6 +89,82 @@ angular.module('onezone-calendar.service', ['ionic'])
 
             return days;
         }
+
+        var _getParameters = function (scope) {
+            var startYear, endYear, displayFrom, displayTo, mondayFirst = false,
+                disableSwipe = false,
+                disablePastDays = false,
+                disableWeekend = false,
+                disableDates = [];
+
+            /* MONDAY FIRST */
+            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.mondayFirst)) {
+                mondayFirst = scope.calendarObject.mondayFirst;
+            }
+
+            /* GET DISABLE PAST DAYS FLAG  */
+            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.disablePastDays)) {
+                disablePastDays = scope.calendarObject.disablePastDays;
+            }
+
+            /* GET DISABLE WEEKEND */
+            if (angular.isDefined(scope.calendarObject && angular.isDefined(scope.calendarObject.disableWeekend))) {
+                disableWeekend = scope.calendarObject.disableWeekend;
+            }
+
+            /* GET DISABLE SWIPE */
+            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.disableSwipe)) {
+                disableSwipe = scope.calendarObject.disableSwipe;
+            }
+
+            /* GET DISABLE DATES */
+            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.disableDates) && angular.isArray(disableDates)) {
+                disableDates = scope.calendarObject.disableDates;
+            }
+
+            /* MONTHS */
+            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.months) && angular.isArray(scope.calendarObject.months) && scope.calendarObject.months.length === 12) {
+                scope.months = scope.calendarObject.months;
+            } else {
+                scope.months = _getMonths();
+            }
+
+            /* DAYS OF THE WEEK */
+            if (angular.isDefined(scope.calendarObject)) {
+                scope.daysOfTheWeek = _getDaysOfTheWeek(mondayFirst, scope.calendarObject.daysOfTheWeek);
+
+            } else {
+                scope.daysOfTheWeek = _getDaysOfTheWeek(mondayFirst, null);
+            }
+
+            /* GET START DATE */
+            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.startDate) && angular.isDate(scope.calendarObject.startDate)) {
+                startYear = scope.calendarObject.startDate.getFullYear();
+                displayFrom = scope.calendarObject.startDate;
+            } else {
+                startYear = scope.currentMonth.getFullYear() - 120;
+            }
+
+            /* GET END DATE */
+            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.endDate) && angular.isDate(scope.calendarObject.endDate)) {
+                endYear = scope.calendarObject.endDate.getFullYear();
+                displayTo = scope.calendarObject.endDate;
+            } else {
+                endYear = scope.currentMonth.getFullYear() + 11;
+            }
+
+            return {
+                mondayFirst: mondayFirst,
+                startYear: startYear,
+                endYear: endYear,
+                displayFrom: displayFrom,
+                displayTo: displayTo,
+                disableSwipe: disableSwipe,
+                disablePastDays: disablePastDays,
+                disableWeekend: disableWeekend,
+                disableDates: disableDates
+            };
+        };
 
         /* Get years method */
         var _getYears = function (startYear, endYear) {
@@ -141,11 +241,7 @@ angular.module('onezone-calendar.service', ['ionic'])
 
         /* Check if two dates are equal */
         var _sameDate = function (date, compareDate) {
-            if (angular.isDefined(date) && angular.isDate(date) && angular.isDefined(compareDate) && angular.isDate(compareDate)) {
-                return date.getDate() === compareDate.getDate() && date.getMonth() === compareDate.getMonth() && date.getFullYear() === compareDate.getFullYear();
-            }
-
-            return false;
+            return datesAreEquals(date, compareDate);
         };
 
         /* Create month calendar */
@@ -158,7 +254,7 @@ angular.module('onezone-calendar.service', ['ionic'])
 
             while (!stopflag) {
                 weeks.push({
-                    days: createWeek(date, createMonthParam.date, createMonthParam.disablePastDays, createMonthParam.displayFrom, createMonthParam.displayTo)
+                    days: createWeek(date, createMonthParam.date, createMonthParam.disablePastDays, createMonthParam.disableWeekend, createMonthParam.disableDates, createMonthParam.displayFrom, createMonthParam.displayTo)
                 });
 
                 date.setDate(date.getDate() + 7);
@@ -169,6 +265,7 @@ angular.module('onezone-calendar.service', ['ionic'])
             return weeks;
         };
 
+        serviceFactory.getParameters = _getParameters;
         serviceFactory.getYears = _getYears;
         serviceFactory.getActiveYearSlide = _getActiveYearSlide;
         serviceFactory.getMonths = _getMonths;

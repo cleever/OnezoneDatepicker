@@ -3,8 +3,7 @@ angular.module('onezone-calendar', ['ionic', 'onezone-calendar.templates', 'onez
         'use strict';
 
         var link = function (scope, element, attrs) {
-            var selectedDate, startYear, endYear, displayFrom, displayTo, disablePastDays = false,
-                mondayFirst = false;
+            var selectedDate, parameters = {};
 
             scope.showLoader = false;
             scope.showMonthModal = false;
@@ -19,61 +18,24 @@ angular.module('onezone-calendar', ['ionic', 'onezone-calendar.templates', 'onez
 
             scope.selectedDate = selectedDate;
             scope.currentMonth = angular.copy(selectedDate);
-
-            /* MONDAY FIRST */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.mondayFirst)) {
-                mondayFirst = scope.calendarObject.mondayFirst;
-            }
-
-            /* READ DISABLE PAST DAYS FLAG  */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.disablePastDays)) {
-                disablePastDays = scope.calendarObject.disablePastDays;
-            }
-
-            /* MONTHS */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.months) && angular.isArray(scope.calendarObject.months) && scope.calendarObject.months.length === 12) {
-                scope.months = scope.calendarObject.months;
-            } else {
-                scope.months = onezoneCalendarService.getMonths();
-            }
-
-            /* DAYS OF THE WEEK */
-            if (angular.isDefined(scope.calendarObject)) {
-                scope.daysOfTheWeek = onezoneCalendarService.getDaysOfTheWeek(mondayFirst, scope.calendarObject.daysOfTheWeek);
-
-            } else {
-                scope.daysOfTheWeek = onezoneCalendarService.getDaysOfTheWeek(mondayFirst, null);
-            }
-
-            /* START /END DATE */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.startDate) && angular.isDate(scope.calendarObject.startDate)) {
-                startYear = scope.calendarObject.startDate.getFullYear();
-                displayFrom = scope.calendarObject.startDate;
-            } else {
-                startYear = scope.currentMonth.getFullYear() - 120;
-            }
-
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.endDate) && angular.isDate(scope.calendarObject.endDate)) {
-                endYear = scope.calendarObject.endDate.getFullYear();
-                displayTo = scope.calendarObject.endDate;
-            } else {
-                endYear = scope.currentMonth.getFullYear() + 11;
-            }
+            parameters = onezoneCalendarService.getParameters(scope);
 
             /* CREATE MONTH CALENDAR */
             scope.createCalendar = function (date) {
                 var createMonthParam = {
                     date: date,
-                    mondayFirst: mondayFirst,
-                    disablePastDays: disablePastDays,
-                    displayFrom: displayFrom,
-                    displayTo: displayTo
+                    mondayFirst: parameters.mondayFirst,
+                    disablePastDays: parameters.disablePastDays,
+                    displayFrom: parameters.displayFrom,
+                    displayTo: parameters.displayTo,
+                    disableWeekend: parameters.disableWeekend,
+                    disableDates: parameters.disableDates
                 };
 
                 return onezoneCalendarService.createMonth(createMonthParam);
             };
 
-            scope.yearSlides = onezoneCalendarService.getYears(startYear, endYear);
+            scope.yearSlides = onezoneCalendarService.getYears(parameters.startYear, parameters.endYear);
             scope.selectedYearSlide = onezoneCalendarService.getActiveYearSlide(scope.yearSlides, scope.currentMonth.getFullYear());
             scope.month = scope.createCalendar(selectedDate);
 
@@ -92,6 +54,20 @@ angular.module('onezone-calendar', ['ionic', 'onezone-calendar.templates', 'onez
                 }
             };
 
+            /* SELECT MONTH METHOD */
+            scope.selectMonth = function (monthIndex) {
+                scope.currentMonth = new Date(scope.currentMonth.getFullYear(), monthIndex, 1);
+                scope.month = scope.createCalendar(scope.currentMonth);
+                scope.closeModals();
+            };
+
+            /* SELECT YEAR METHOD */
+            scope.selectYear = function (year) {
+                scope.currentMonth = new Date(year, scope.currentMonth.getMonth(), 1);
+                scope.selectedYearSlide = onezoneCalendarService.getActiveYearSlide(scope.yearSlides, scope.currentMonth.getFullYear());
+                scope.closeYearModal();
+            };
+
             /* NEXT MONTH METHOD */
             scope.nextMonth = function () {
                 scope.currentMonth = new Date(scope.currentMonth.getFullYear(), scope.currentMonth.getMonth() + 1, 1);
@@ -106,18 +82,16 @@ angular.module('onezone-calendar', ['ionic', 'onezone-calendar.templates', 'onez
                 scope.month = scope.createCalendar(scope.currentMonth);
             };
 
-            /* SELECT MONTH METHOD */
-            scope.selectMonth = function (monthIndex) {
-                scope.currentMonth = new Date(scope.currentMonth.getFullYear(), monthIndex, 1);
-                scope.month = scope.createCalendar(scope.currentMonth);
-                scope.closeModals();
+            scope.swipeLeft = function () {
+                if (!parameters.disableSwipe) {
+                    scope.nextMonth();
+                }
             };
 
-            /* SELECT YEAR METHOD */
-            scope.selectYear = function (year) {
-                scope.currentMonth = new Date(year, scope.currentMonth.getMonth(), 1);
-                scope.selectedYearSlide = onezoneCalendarService.getActiveYearSlide(scope.yearSlides, scope.currentMonth.getFullYear());
-                scope.closeYearModal();
+            scope.swipeRight = function () {
+                if (!parameters.disableSwipe) {
+                    scope.previousMonth();
+                }
             };
 
             /* CLOSE MODAL */

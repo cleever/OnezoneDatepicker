@@ -2,12 +2,12 @@
     <div class="onezone-transclude">
         <ng-transclude></ng-transclude>
     </div>
-    <div class="onezone-calendar">
-        <div class="onezone-calendar-modal" ng-if="showLoader || showMonthModal || showYearModal">
-            <div class="onezone-calendar-close-button icon ion-ios-close-outline" ng-if="showMonthModal || showYearModal" ng-click="closeModals()"></div>
-            <ion-spinner icon="spiral" class="spinner-dark onezone-calendar-loader" ng-if="showLoader"></ion-spinner>
+    <div class="onezone-calendar" ng-class="{ 'onezone-calendar-show' : calendar.showCalendar }">
+        <div class="onezone-calendar-modal" ng-if="calendar.showLoader || calendar.showMonthModal || calendar.showYearModal">
+            <div class="onezone-calendar-close-button icon ion-ios-close-outline" ng-if="calendar.showMonthModal || calendar.showYearModal" ng-click="closeModals()"></div>
+            <ion-spinner icon="spiral" class="spinner-dark onezone-calendar-loader" ng-if="calendar.showLoader"></ion-spinner>
 
-            <div class="onezone-calendar-modal-content" ng-if="showMonthModal">
+            <div class="onezone-calendar-modal-content" ng-if="calendar.showMonthModal">
                 <div class="onezone-calendar-button onezone-calendar-select-year" ng-click="openYearModal()">
                     {{currentMonth.getFullYear()}}
                 </div>
@@ -17,7 +17,7 @@
             </div>
 
 
-            <div class="onezone-calendar-modal-content" ng-if="showYearModal">
+            <div class="onezone-calendar-modal-content" ng-if="calendar.showYearModal">
                 <ion-slide-box show-pager="false" active-slide="selectedYearSlide">
                     <ion-slide ng-repeat="slide in yearSlides">
                         <div class="onezone-calendar-modal-item" ng-repeat="year in slide.years" ng-click="selectYear(year)" ng-class="{'onezone-calendar-modal-item-active': currentMonth.getFullYear() == year}">
@@ -46,9 +46,16 @@
         </div>
         <div class="row" ng-repeat="week in month" on-swipe-right="swipeRight()" on-swipe-left="swipeLeft()">
             <div class="col" ng-repeat="day in week.days" ng-click="selectDate(day.fullDate, day.isDisabled)">
-                <div class="onezone-calendar-day" ng-class="{ 'onezone-calendar-current-day' : day.isToday, 'onezone-calendar-different-month' : !day.isCurrentMonth || day.isDisabled, 'onezone-calendar-active-day' : sameDate(day.fullDate, selectedDate) }">
+                <div class="onezone-calendar-day" ng-class="{ 'onezone-calendar-current-day' : day.isToday, 'onezone-calendar-different-month' : !day.isCurrentMonth, 'onezone-calendar-active-day' : sameDate(day.fullDate, selectedDate), 'onezone-calendar-disable-day' : day.isDisabled }">
                     {{day.date}}
                 </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col text-right">
+                <span class="onezone-calendar-selection-button ion-ios-close-outline" ng-click="hideCalendar()"></span>
+                <span class="onezone-calendar-selection-button ion-ios-checkmark" ng-click="setDate()"></span>
             </div>
         </div>
     </div>

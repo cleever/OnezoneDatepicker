@@ -1,11 +1,11 @@
 $calendar-height: 200px;
 $calendar-font-color: #3A4351;
-$calendar-blue-color: #11C1F3;
-$calendar-dark-blue-color: #3A5775;
-$calendar-gray-color: #E7E7E7;
-$calendar-light-gray-color: #F0F0F0;
-$calendar-regular-gray-color: #c9c9c9;
-$calendar-white-color: white;
+$calendar-background-color: #FBFAFA;
+$calendar-bottom-border-color: #ECECEC;
+$calendar-active-color: #F48685;
+$calendar-different-month-color: #afafaf;
+$calendar-disabled-color: #dddddd;
+$calendar-modal-color: white;
 @mixin border-radius($radius) {
     -webkit-border-radius: $radius;
     -moz-border-radius: $radius;

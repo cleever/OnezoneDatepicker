@@ -1,9 +1,16 @@
 .onezone-calendar {
   position: relative;
   width: 100%;
-  min-height: 200px;
   display: block;
-  color: #3A4351; }
+  background-color: #FBFAFA;
+  color: #3A4351;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s; }
+
+.onezone-calendar.onezone-calendar-show {
+  max-height: 600px;
+  border-bottom: 2px solid #ECECEC; }
 
 .onezone-calendar-modal {
   position: absolute;
@@ -37,7 +44,7 @@
   font-weight: bold;
   margin-bottom: 5px;
   padding: 8px 0;
-  border-bottom: 1px solid #11C1F3;
+  border-bottom: 1px solid #F48685;
   padding: 5px; }
 
 .onezone-calendar-button:after {
@@ -47,7 +54,7 @@
   height: 0;
   right: 0;
   bottom: 0;
-  border-bottom: 6px solid #11C1F3;
+  border-bottom: 6px solid #F48685;
   border-left: 6px solid transparent; }
 
 .onezone-calendar-select-year {
@@ -60,7 +67,7 @@
   display: inline-block;
   cursor: pointer;
   font-size: 24px;
-  color: #11C1F3;
+  color: #F48685;
   text-align: center;
   width: 24px;
   padding-top: 10px;
@@ -71,7 +78,7 @@
   font-size: 13px;
   text-align: center;
   margin-bottom: 0px;
-  border-bottom: 1px solid #E7E7E7;
+  border-bottom: 1px solid #dddddd;
   padding: px 0; }
 
 .onezone-calendar-day {
@@ -87,18 +94,30 @@
   width: 26px;
   height: 26px;
   line-height: 22px;
-  border: 2px solid white; }
+  border: 2px solid #FBFAFA; }
 
 .onezone-calendar-current-day {
-  border: 2px solid #E7E7E7; }
+  border: 2px solid #dddddd; }
+
+.onezone-calendar-disable-day,
+.onezone-calendar-different-month.onezone-calendar-disable-day {
+  color: #dddddd; }
 
 .onezone-calendar-different-month {
-  color: #c9c9c9; }
+  color: #afafaf; }
 
 .onezone-calendar-active-day,
 .onezone-calendar-active-day:hover {
-  border: 2px solid #11C1F3;
+  border: 2px solid #F48685;
   font-weight: bold; }
+
+.onezone-calendar-selection-button {
+  color: #F48685;
+  font-size: 32px;
+  padding-top: 5px;
+  display: inline-block;
+  cursor: pointer;
+  width: 40px; }
 
 .onezone-calendar-close-button {
   position: absolute;
@@ -133,6 +152,6 @@
   cursor: pointer; }
 
 .onezone-calendar-modal-item.onezone-calendar-modal-item-active {
-  background-color: #11C1F3;
+  background-color: #F48685;
   color: white;
   font-weight: bold; }

@@ -53,6 +53,9 @@
         </div>
 
         <div class="row">
+            <div class="col">
+                <span class="onezone-calendar-selection-button ion-ios-calendar-outline" ng-if="calendar.showTodayButton" ng-click="selectToday()"></span>
+            </div>
             <div class="col text-right">
                 <span class="onezone-calendar-selection-button ion-ios-close-outline" ng-click="hideCalendar()"></span>
                 <span class="onezone-calendar-selection-button ion-ios-checkmark" ng-click="setDate()"></span>

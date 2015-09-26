@@ -95,7 +95,9 @@ angular.module('onezone-calendar.service', ['ionic'])
                 disableSwipe = false,
                 disablePastDays = false,
                 disableWeekend = false,
-                disableDates = [];
+                showTodayButton = true,
+                disableDates = [],
+                showCalendar = false;
 
             /* MONDAY FIRST */
             if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.mondayFirst)) {
@@ -153,6 +155,16 @@ angular.module('onezone-calendar.service', ['ionic'])
                 endYear = scope.currentMonth.getFullYear() + 11;
             }
 
+            /* GET SHOW CALENDAR FLAG */
+            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.showCalendar)) {
+                showCalendar = scope.calendarObject.showCalendar;
+            }
+
+            /* GET SHOW TODAY BUTTON FLAG */
+            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.showTodayButton)) {
+                showTodayButton = scope.calendarObject.showTodayButton;
+            }
+
             return {
                 mondayFirst: mondayFirst,
                 startYear: startYear,
@@ -162,7 +174,8 @@ angular.module('onezone-calendar.service', ['ionic'])
                 disableSwipe: disableSwipe,
                 disablePastDays: disablePastDays,
                 disableWeekend: disableWeekend,
-                disableDates: disableDates
+                disableDates: disableDates,
+                showCalendar: showCalendar
             };
         };
 
@@ -216,7 +229,7 @@ angular.module('onezone-calendar.service', ['ionic'])
         var _getDaysOfTheWeek = function (mondayFirst, customDaysOfTheWeek) {
             var daysOfTheWeek = [];
             if (angular.isDefined(customDaysOfTheWeek) && angular.isArray(customDaysOfTheWeek) && customDaysOfTheWeek.length === 7) {
-                daysOfTheWeek = customDaysOfTheWeek;
+                daysOfTheWeek = angular.copy(customDaysOfTheWeek);
             } else {
                 daysOfTheWeek = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
             }
@@ -265,6 +278,15 @@ angular.module('onezone-calendar.service', ['ionic'])
             return weeks;
         };
 
+        var _showTodayButton = function (parameters) {
+            var date = new Date();
+            if (!parameters.showTodayButton) {
+                return false;
+            }
+            
+            return !checkIfIsDisabled(date, parameters.disablePastDays, parameters.disableWeekend, parameters.disableDates, parameters.displayFrom, parameters.displayTo);
+        };
+
         serviceFactory.getParameters = _getParameters;
         serviceFactory.getYears = _getYears;
         serviceFactory.getActiveYearSlide = _getActiveYearSlide;
@@ -273,5 +295,6 @@ angular.module('onezone-calendar.service', ['ionic'])
         serviceFactory.getPreviousMonth = _getPreviousMonth;
         serviceFactory.sameDate = _sameDate;
         serviceFactory.createMonth = _createMonth;
+        serviceFactory.showTodayButton = _showTodayButton;
         return serviceFactory;
     });

@@ -1,8 +1,8 @@
 {
   "version": 3,
-  "file": "onezone-calendar-variables.css",
+  "file": "onezone-datepicker-variables.css",
   "sources": [
-    "onezone-calendar-variables.scss"
+    "onezone-datepicker-variables.scss"
   ],
   "sourcesContent": [],
   "mappings": "",

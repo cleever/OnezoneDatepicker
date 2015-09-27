@@ -1,0 +1,14 @@
+$datepicker-height: 200px;
+$datepicker-font-color: #3A4351;
+$datepicker-background-color: #FBFAFA;
+$datepicker-bottom-border-color: #ECECEC;
+$datepicker-active-color: #F48685;
+$datepicker-different-month-color: #afafaf;
+$datepicker-disabled-color: #dddddd;
+$datepicker-modal-color: white;
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}

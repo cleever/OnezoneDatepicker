@@ -1,5 +1,5 @@
-angular.module('onezone-calendar.service', ['ionic'])
-    .factory('onezoneCalendarService', function () {
+angular.module('onezone-datepicker.service', ['ionic'])
+    .factory('onezoneDatepickerService', function () {
         'use strict';
 
         var serviceFactory = {};
@@ -97,72 +97,72 @@ angular.module('onezone-calendar.service', ['ionic'])
                 disableWeekend = false,
                 showTodayButton = true,
                 disableDates = [],
-                showCalendar = false;
+                showDatepicker = false;
 
             /* MONDAY FIRST */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.mondayFirst)) {
-                mondayFirst = scope.calendarObject.mondayFirst;
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.mondayFirst)) {
+                mondayFirst = scope.datepickerObject.mondayFirst;
             }
 
             /* GET DISABLE PAST DAYS FLAG  */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.disablePastDays)) {
-                disablePastDays = scope.calendarObject.disablePastDays;
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.disablePastDays)) {
+                disablePastDays = scope.datepickerObject.disablePastDays;
             }
 
             /* GET DISABLE WEEKEND */
-            if (angular.isDefined(scope.calendarObject && angular.isDefined(scope.calendarObject.disableWeekend))) {
-                disableWeekend = scope.calendarObject.disableWeekend;
+            if (angular.isDefined(scope.datepickerObject && angular.isDefined(scope.datepickerObject.disableWeekend))) {
+                disableWeekend = scope.datepickerObject.disableWeekend;
             }
 
             /* GET DISABLE SWIPE */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.disableSwipe)) {
-                disableSwipe = scope.calendarObject.disableSwipe;
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.disableSwipe)) {
+                disableSwipe = scope.datepickerObject.disableSwipe;
             }
 
             /* GET DISABLE DATES */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.disableDates) && angular.isArray(disableDates)) {
-                disableDates = scope.calendarObject.disableDates;
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.disableDates) && angular.isArray(disableDates)) {
+                disableDates = scope.datepickerObject.disableDates;
             }
 
             /* MONTHS */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.months) && angular.isArray(scope.calendarObject.months) && scope.calendarObject.months.length === 12) {
-                scope.months = scope.calendarObject.months;
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.months) && angular.isArray(scope.datepickerObject.months) && scope.datepickerObject.months.length === 12) {
+                scope.months = scope.datepickerObject.months;
             } else {
                 scope.months = _getMonths();
             }
 
             /* DAYS OF THE WEEK */
-            if (angular.isDefined(scope.calendarObject)) {
-                scope.daysOfTheWeek = _getDaysOfTheWeek(mondayFirst, scope.calendarObject.daysOfTheWeek);
+            if (angular.isDefined(scope.datepickerObject)) {
+                scope.daysOfTheWeek = _getDaysOfTheWeek(mondayFirst, scope.datepickerObject.daysOfTheWeek);
 
             } else {
                 scope.daysOfTheWeek = _getDaysOfTheWeek(mondayFirst, null);
             }
 
             /* GET START DATE */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.startDate) && angular.isDate(scope.calendarObject.startDate)) {
-                startYear = scope.calendarObject.startDate.getFullYear();
-                displayFrom = scope.calendarObject.startDate;
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.startDate) && angular.isDate(scope.datepickerObject.startDate)) {
+                startYear = scope.datepickerObject.startDate.getFullYear();
+                displayFrom = scope.datepickerObject.startDate;
             } else {
                 startYear = scope.currentMonth.getFullYear() - 120;
             }
 
             /* GET END DATE */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.endDate) && angular.isDate(scope.calendarObject.endDate)) {
-                endYear = scope.calendarObject.endDate.getFullYear();
-                displayTo = scope.calendarObject.endDate;
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.endDate) && angular.isDate(scope.datepickerObject.endDate)) {
+                endYear = scope.datepickerObject.endDate.getFullYear();
+                displayTo = scope.datepickerObject.endDate;
             } else {
                 endYear = scope.currentMonth.getFullYear() + 11;
             }
 
             /* GET SHOW CALENDAR FLAG */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.showCalendar)) {
-                showCalendar = scope.calendarObject.showCalendar;
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.showDatepicker)) {
+                showDatepicker = scope.datepickerObject.showDatepicker;
             }
 
             /* GET SHOW TODAY BUTTON FLAG */
-            if (angular.isDefined(scope.calendarObject) && angular.isDefined(scope.calendarObject.showTodayButton)) {
-                showTodayButton = scope.calendarObject.showTodayButton;
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.showTodayButton)) {
+                showTodayButton = scope.datepickerObject.showTodayButton;
             }
 
             return {
@@ -175,7 +175,7 @@ angular.module('onezone-calendar.service', ['ionic'])
                 disablePastDays: disablePastDays,
                 disableWeekend: disableWeekend,
                 disableDates: disableDates,
-                showCalendar: showCalendar
+                showDatepicker: showDatepicker
             };
         };
 
@@ -257,7 +257,7 @@ angular.module('onezone-calendar.service', ['ionic'])
             return datesAreEquals(date, compareDate);
         };
 
-        /* Create month calendar */
+        /* Create month datepicker */
         var _createMonth = function (createMonthParam) {
             var stopflag = false,
                 count = 0,

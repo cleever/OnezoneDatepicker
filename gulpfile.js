@@ -11,7 +11,7 @@ gulp.task('html2js', function () {
     return gulp.src(['./src/templates/*.html'])
         .pipe(minifyHtml())
         .pipe(ngHtml2Js({
-            moduleName: "onezone-calendar.templates"
+            moduleName: "onezone-datepicker.templates"
         }))
         .pipe(concat("templates.js"))
         .pipe(uglify())
@@ -19,13 +19,13 @@ gulp.task('html2js', function () {
 });
 
 gulp.task('sass2css', function () {
-    gulp.src('./src/style/onezone-calendar.scss')
+    gulp.src('./src/style/onezone-datepicker.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./src/style/'));
 });
 
 gulp.task('css2js', function () {
-    return gulp.src("./src/style/onezone-calendar.css")
+    return gulp.src("./src/style/onezone-datepicker.css")
         .pipe(css2js())
         .pipe(uglify())
         .pipe(gulp.dest("./dist/"));
@@ -33,7 +33,7 @@ gulp.task('css2js', function () {
 
 gulp.task('minify-all', ['delete-dist', 'html2js', 'sass2css', 'css2js'], function () {
     return gulp.src(['./dist/*.js', './src/js/*.js'])
-        .pipe(concat('onezone-calendar.min.js'))
+        .pipe(concat('onezone-datepicker.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('dist/'));
 });
@@ -43,7 +43,7 @@ gulp.task('delete-dist', function () {
 });
 
 gulp.task('delete-trash', ['minify-all'], function () {
-    del(['dist/templates.js', 'dist/onezone-calendar.js']);
+    del(['dist/templates.js', 'dist/onezone-datepicker.js']);
 });
 
 gulp.task('default', ['delete-trash'], function () {});

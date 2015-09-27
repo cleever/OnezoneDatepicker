@@ -1,21 +1,21 @@
-@import 'onezone-calendar-variables';
-.onezone-calendar {
+@import 'onezone-datepicker-variables';
+.onezone-datepicker {
     position: relative;
     width: 100%;
     display: block;
-    background-color: $calendar-background-color;
-    color: $calendar-font-color;
+    background-color: $datepicker-background-color;
+    color: $datepicker-font-color;
     overflow: hidden;
     max-height: 0;
     transition: max-height .4s;
 }
 
-.onezone-calendar.onezone-calendar-show {
+.onezone-datepicker.onezone-datepicker-show {
     max-height: 600px;
-    border-bottom: 2px solid $calendar-bottom-border-color;
+    border-bottom: 2px solid $datepicker-bottom-border-color;
 }
 
-.onezone-calendar-modal {
+.onezone-datepicker-modal {
     position: absolute;
     z-index: 1;
     top: 0;
@@ -26,7 +26,7 @@
     background: rgba(255, 255, 255, 0.9)
 }
 
-.onezone-calendar-loader {
+.onezone-datepicker-loader {
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
@@ -35,64 +35,64 @@
     margin-left: -10px;
 }
 
-.onezone-calendar-loader svg {
+.onezone-datepicker-loader svg {
     width: 20px;
     height: 20px;
 }
 
-.onezone-calendar-button {
+.onezone-datepicker-button {
     position: relative;
     text-align: center;
     display: inline-block;
     cursor: pointer;
-    color: $calendar-font-color;
+    color: $datepicker-font-color;
     font-size: 15px;
     font-weight: bold;
     margin-bottom: 5px;
     padding: 8px 0;
-    border-bottom: 1px solid $calendar-active-color;
+    border-bottom: 1px solid $datepicker-active-color;
     padding: 5px;
 }
 
-.onezone-calendar-button:after {
+.onezone-datepicker-button:after {
     position: absolute;
     content: " ";
     width: 0;
     height: 0;
     right: 0;
     bottom: 0;
-    border-bottom: 6px solid $calendar-active-color;
+    border-bottom: 6px solid $datepicker-active-color;
     border-left: 6px solid transparent;
 }
 
-.onezone-calendar-select-year {
+.onezone-datepicker-select-year {
     position: absolute;
     top: 8px;
     left: 5px;
     width: 25%;
 }
 
-.onezone-calendar-navigation-arrow {
+.onezone-datepicker-navigation-arrow {
     display: inline-block;
     cursor: pointer;
     font-size: 24px;
-    color: $calendar-active-color;
+    color: $datepicker-active-color;
     text-align: center;
     width: 24px;
     padding-top: 10px;
     line-height: 24px;
 }
 
-.onezone-calendar-week {
+.onezone-datepicker-week {
     font-weight: 600;
     font-size: 13px;
     text-align: center;
     margin-bottom: 0px;
-    border-bottom: 1px solid $calendar-disabled-color;
+    border-bottom: 1px solid $datepicker-disabled-color;
     padding: px 0;
 }
 
-.onezone-calendar-day {
+.onezone-datepicker-day {
     @include border-radius(100%);
     cursor: pointer;
     display: block;
@@ -102,30 +102,30 @@
     width: 26px;
     height: 26px;
     line-height: 22px;
-    border: 2px solid $calendar-background-color;
+    border: 2px solid $datepicker-background-color;
 }
 
-.onezone-calendar-current-day {
-    border: 2px solid $calendar-disabled-color;
+.onezone-datepicker-current-day {
+    border: 2px solid $datepicker-disabled-color;
 }
 
-.onezone-calendar-disable-day,
-.onezone-calendar-different-month.onezone-calendar-disable-day {
-    color: $calendar-disabled-color;
+.onezone-datepicker-disable-day,
+.onezone-datepicker-different-month.onezone-datepicker-disable-day {
+    color: $datepicker-disabled-color;
 }
 
-.onezone-calendar-different-month {
-    color: $calendar-different-month-color;
+.onezone-datepicker-different-month {
+    color: $datepicker-different-month-color;
 }
 
-.onezone-calendar-active-day,
-.onezone-calendar-active-day:hover {
-    border: 2px solid $calendar-active-color;
+.onezone-datepicker-active-day,
+.onezone-datepicker-active-day:hover {
+    border: 2px solid $datepicker-active-color;
     font-weight: bold;
 }
 
-.onezone-calendar-selection-button {
-    color: $calendar-active-color;
+.onezone-datepicker-selection-button {
+    color: $datepicker-active-color;
     font-size: 34px;
     padding-top: 5px;
     display: inline-block;
@@ -133,34 +133,34 @@
     width: 40px;
 }
 
-.onezone-calendar-close-button {
+.onezone-datepicker-close-button {
     position: absolute;
     right: 10px;
     top: 10px;
     z-index: 1;
     font-size: 28px;
     cursor: pointer;
-    color: $calendar-font-color;
+    color: $datepicker-font-color;
     width: 50px;
     text-align: right;
 }
 
-.onezone-calendar-modal-content {
+.onezone-datepicker-modal-content {
     position: relative;
     padding: 50px 5px 40px 5px;
 }
 
-.onezone-calendar-modal-content .slider {
+.onezone-datepicker-modal-content .slider {
     position: initial;
 }
 
-.onezone-calendar-modal-content:after {
+.onezone-datepicker-modal-content:after {
     content: "";
     display: table;
     clear: both;
 }
 
-.onezone-calendar-modal-item {
+.onezone-datepicker-modal-item {
     display: block;
     float: left;
     width: 25%;
@@ -170,8 +170,8 @@
     cursor: pointer;
 }
 
-.onezone-calendar-modal-item.onezone-calendar-modal-item-active {
-    background-color: $calendar-active-color;
-    color: $calendar-modal-color;
+.onezone-datepicker-modal-item.onezone-datepicker-modal-item-active {
+    background-color: $datepicker-active-color;
+    color: $datepicker-modal-color;
     font-weight: bold;
 }

@@ -46,7 +46,7 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
                 showLoader: false,
                 showMonthModal: false,
                 showYearModal: false,
-                showTodayButton: true
+                showTodayButton: false
             };
 
             parameters = drawDatepicker(scope);

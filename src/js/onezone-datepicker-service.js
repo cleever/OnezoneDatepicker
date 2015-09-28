@@ -175,7 +175,8 @@ angular.module('onezone-datepicker.service', ['ionic'])
                 disablePastDays: disablePastDays,
                 disableWeekend: disableWeekend,
                 disableDates: disableDates,
-                showDatepicker: showDatepicker
+                showDatepicker: showDatepicker,
+                showTodayButton: showTodayButton
             };
         };
 
@@ -283,7 +284,7 @@ angular.module('onezone-datepicker.service', ['ionic'])
             if (!parameters.showTodayButton) {
                 return false;
             }
-            
+
             return !checkIfIsDisabled(date, parameters.disablePastDays, parameters.disableWeekend, parameters.disableDates, parameters.displayFrom, parameters.displayTo);
         };
 

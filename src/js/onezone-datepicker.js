@@ -142,18 +142,22 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
 
             scope.showDatepicker = function () {
                 if (!scope.datepicker.showDatepicker) {
-                    scope.datepicker.showDatepicker = true;
+                    scope.datepickerObject.showDatepicker = true;
                 }
             };
 
             scope.hideDatepicker = function () {
-                scope.datepicker.showDatepicker = false;
+                scope.datepickerObject.showDatepicker = false;
             };
 
             scope.setDate = function () {
                 scope.datepickerObject.date = scope.selectedDate;
-                scope.datepicker.showDatepicker = false;
+                scope.datepickerObject.showDatepicker = false;
             };
+
+            scope.$watch('datepickerObject.showDatepicker', function (value) {
+                scope.datepicker.showDatepicker = value;
+            });
 
             element.on("click", function ($event) {
                 var target = $event.target;

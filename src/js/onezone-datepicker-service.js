@@ -91,13 +91,16 @@ angular.module('onezone-datepicker.service', ['ionic'])
         }
 
         var _getParameters = function (scope) {
-            var startYear, endYear, displayFrom, displayTo, mondayFirst = false,
+            var callback, startYear, endYear, displayFrom, displayTo, mondayFirst = false,
                 disableSwipe = false,
                 disablePastDays = false,
                 disableWeekend = false,
                 showTodayButton = true,
                 disableDates = [],
-                showDatepicker = false;
+                showDatepicker = false,
+                calendarMode = false,
+                hideCancelButton = false,
+                hideSetButton = false;
 
             /* MONDAY FIRST */
             if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.mondayFirst)) {
@@ -165,6 +168,26 @@ angular.module('onezone-datepicker.service', ['ionic'])
                 showTodayButton = scope.datepickerObject.showTodayButton;
             }
 
+            /* GET CALLBACK FUNCTION */
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.callback) && angular.isFunction(scope.datepickerObject.callback)) {
+                callback = scope.datepickerObject.callback;
+            }
+
+            /* GET CALENDAR MODE FLAG */
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.calendarMode)) {
+                calendarMode = scope.datepickerObject.calendarMode;
+            }
+            
+            /* GET HIDE CANCEL BUTTON FLAG */
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.hideCancelButton)) {
+                hideCancelButton = scope.datepickerObject.hideCancelButton;
+            }
+            
+            /* GET HIDE SET BUTTON FLAG */
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.hideSetButton)) {
+                hideSetButton = scope.datepickerObject.hideSetButton;
+            }
+
             return {
                 mondayFirst: mondayFirst,
                 startYear: startYear,
@@ -176,7 +199,11 @@ angular.module('onezone-datepicker.service', ['ionic'])
                 disableWeekend: disableWeekend,
                 disableDates: disableDates,
                 showDatepicker: showDatepicker,
-                showTodayButton: showTodayButton
+                showTodayButton: showTodayButton,
+                calendarMode: calendarMode,
+                hideCancelButton: hideCancelButton,
+                hideSetButton: hideSetButton,
+                callback: callback
             };
         };
 
@@ -281,7 +308,7 @@ angular.module('onezone-datepicker.service', ['ionic'])
 
         var _showTodayButton = function (parameters) {
             var date = new Date();
-            if (!parameters.showTodayButton) {
+            if (!parameters.showTodayButton || parameters.calendarMode) {
                 return false;
             }
 

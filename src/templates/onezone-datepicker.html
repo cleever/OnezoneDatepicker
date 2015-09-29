@@ -52,13 +52,13 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-if="!datepicker.calendarMode">
             <div class="col">
                 <span class="onezone-datepicker-selection-button ion-ios-calendar-outline" ng-if="datepicker.showTodayButton" ng-click="selectToday()"></span>
             </div>
             <div class="col text-right">
-                <span class="onezone-datepicker-selection-button ion-ios-close-outline" ng-click="hideDatepicker()"></span>
-                <span class="onezone-datepicker-selection-button ion-ios-checkmark" ng-click="setDate()"></span>
+                <span class="onezone-datepicker-selection-button ion-ios-close-outline" ng-if="!datepicker.hideCancelButton" ng-click="hideDatepicker()"></span>
+                <span class="onezone-datepicker-selection-button ion-ios-checkmark" ng-if="!datepicker.hideSetButton" ng-click="setDate()"></span>
             </div>
         </div>
     </div>

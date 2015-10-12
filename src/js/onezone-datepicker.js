@@ -46,7 +46,7 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
             }
 
             if (angular.isDefined(parameters.callback)) {
-                parameters.callback();
+                parameters.callback(scope.selectedDate);
             }
         }
 

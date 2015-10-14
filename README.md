@@ -17,7 +17,7 @@ Download the file and copy in your "lib" directory (i.e. lib/onezone-datepicker/
 3) Create a Onezone Datepicker object for your needs
 	
 	$scope.onezoneDatepicker = {
-        date: date, 					
+        date: date, // MANDATORY 					
         mondayFirst: false,				
         months: months,					
         daysOfTheWeek: daysOfTheWeek, 	

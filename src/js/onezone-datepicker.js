@@ -38,11 +38,21 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
             return parameters;
         }
 
+        function showHideDatepicker(scope, value) {
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.showDatepicker)) {
+                scope.datepickerObject.showDatepicker = value;
+            } else {
+                scope.datepicker.showDatepicker = value;
+            }
+        }
+
         function setDate(scope, parameters) {
-            scope.datepickerObject.date = scope.selectedDate;
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.date)) {
+                scope.datepickerObject.date = scope.selectedDate;
+            }
 
             if (!parameters.calendarMode) {
-                scope.datepickerObject.showDatepicker = false;
+                showHideDatepicker(scope, false);
             }
 
             if (angular.isDefined(parameters.callback)) {
@@ -168,12 +178,12 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
 
             scope.showDatepicker = function () {
                 if (!scope.datepicker.showDatepicker) {
-                    scope.datepickerObject.showDatepicker = true;
+                    showHideDatepicker(scope, true);
                 }
             };
 
             scope.hideDatepicker = function () {
-                scope.datepickerObject.showDatepicker = false;
+                showHideDatepicker(scope, false);
             };
 
             scope.setDate = function () {

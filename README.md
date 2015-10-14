@@ -93,7 +93,9 @@ Using this variable you can make the datepciker to be visible as default. Also y
 
 12) **showTodayButton** (Optional)
 
-Hide/Show today button. `NOTE: if you the current date is disabled by disableWeekend or disableDates the button will automatically disappear`
+Hide/Show today button. 
+
+`NOTE: If you the current date is disabled by disableWeekend or disableDates the button will automatically disappear`
 
 13) **calendarMode** (Optional)
 
@@ -105,7 +107,9 @@ Hide Cancel button
 
 15) **hideSetButton** (Optional)
 
-Hide Set button
+Hide Set button.
+
+`NOTE: If you hide sey button then when the user select date the datepicker will collapsed and the date will be set`
 
 16) **callback** (Optional)
 

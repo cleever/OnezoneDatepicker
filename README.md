@@ -1,29 +1,46 @@
-# README #
+# Introduction #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Onezone Datepicker is a flexible datepicker widget that can be used in your Ionic Framework applications.
 
-### What is this repository for? ###
+### Who to use? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Download the file and copy in your "lib" directory (i.e. lib/onezone-datepicker/dist/onezone-datepicker.min.js)
 
-### How do I get set up? ###
+1) Include Onezone Datepicker in your index.html file
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+    <script src="lib/onezone-datepicker/dist/onezone-datepicker.min.js"></script>
 
-### Contribution guidelines ###
+2) Inject the `onezone-datepicker` dependency in your application
 
-* Writing tests
-* Code review
-* Other guidelines
+    angular.module('starter', ['ionic', 'onezone-datepicker'])
+	
+3) Create a Onezone Datepicker object for your needs
+	
+	$scope.onezoneDatepicker = {
+        date: date, 					
+        mondayFirst: false,				
+        months: months,					
+        daysOfTheWeek: daysOfTheWeek, 	
+        startDate: startDate, 			
+        endDate: endDate,					
+        disablePastDays: false,
+        disableSwipe: false,
+        disableWeekend: false,
+        disableDates: disableDates,
+        showDatepicker: false,
+        showTodayButton: true,
+        calendarMode: false,
+        hideCancelButton: false,
+        hideSetButton: false,
+        callback: function(value){
+			// your code
+		}
+    };
 
-### Who do I talk to? ###
+4) Use the below code in your html file (don't forget to add `show-onezone-datepicker` on your button element)
 
-* Repo owner or admin
-* Other community or team contact
+    <onezone-datepicker datepicker-object="onezoneDatepicker">
+        <button class="button button-block button-outline button-positive show-onezone-datepicker">
+            {{onezoneDatepicker.date | date:'dd MMMM yyyy'}}
+        </button>
+    </onezone-datepicker>

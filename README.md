@@ -4,7 +4,7 @@ Onezone Datepicker is a flexible datepicker widget that can be used in your Ioni
 
 ### Who to use? ###
 
-Download the file and copy in your "lib" directory (i.e. lib/onezone-datepicker/dist/onezone-datepicker.min.js)
+Download the file and copy in your "lib" directory (lib/onezone-datepicker/dist/onezone-datepicker.min.js)
 
 1) Include Onezone Datepicker in your index.html file
 
@@ -44,3 +44,29 @@ Download the file and copy in your "lib" directory (i.e. lib/onezone-datepicker/
             {{onezoneDatepicker.date | date:'dd MMMM yyyy'}}
         </button>
     </onezone-datepicker>
+    
+### Options ###
+
+1) **date** (Mandatory)
+
+Represent the date object. Default is current date, but you can give any date. When the set button is pressed this object will be changed with the selected date.
+
+2) **mondayFirst** (Optional)
+
+If you want the calendar to start with Monday set this flag to `true`
+
+3) **months** (Optional)
+
+You can give your own list of months. Default: `['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']`
+
+4) **daysOfTheWeek** (Optional)
+
+Pass your own days of the week list. Default: `['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']`
+
+5) **startDate** (Optional)
+
+You can specify the start date of the datepicker. (`new Date(1989, 1, 26)`)
+
+6) **endDate** (Optional)
+
+Same as startDate, you can specify end date of the datepicker. (`new Date(2024, 1, 26)`)

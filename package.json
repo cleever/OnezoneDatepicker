@@ -1,8 +1,8 @@
 {
     "name": "onezone-datepicker",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "private": true,
-    "description": "A date picker for Ionic Framework",
+    "description": "A datepicker for Ionic Framework",
     "main": [
     "./dist/onezone-datepicker.min.js"
   ],

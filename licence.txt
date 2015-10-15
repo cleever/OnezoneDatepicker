@@ -1,0 +1,6 @@
+/*! 
+ * Onezone Datepicker - A datepicker for Ionic Framework
+ * Author: Sergiu Butnarasu
+ * Version: 1.0.0
+ * Date: 2015-10-15T19:58
+*/

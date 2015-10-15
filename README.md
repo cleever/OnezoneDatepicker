@@ -2,9 +2,10 @@
 
 Onezone Datepicker is a flexible datepicker widget that can be used in your Ionic Framework applications.
 
+
 ### Who to use? ###
 
-Download the file and copy in your "lib" directory (lib/onezone-datepicker/dist/onezone-datepicker.min.js)
+Download the file and copy it in your "lib" directory (lib/onezone-datepicker/dist/onezone-datepicker.min.js)
 
 1) Include Onezone Datepicker in your index.html file
 
@@ -37,19 +38,20 @@ Download the file and copy in your "lib" directory (lib/onezone-datepicker/dist/
 		}
     };
 
-4) Use the below code in your html file (don't forget to add `show-onezone-datepicker` on your button element)
+4) Use the code below in your html file (don't forget to add `show-onezone-datepicker` on your button element)
 
     <onezone-datepicker datepicker-object="onezoneDatepicker">
         <button class="button button-block button-outline button-positive show-onezone-datepicker">
             {{onezoneDatepicker.date | date:'dd MMMM yyyy'}}
         </button>
     </onezone-datepicker>
-    
+
+
 ### Options ###
 
 1) **date** (Mandatory)
 
-Represent the date object. Default is current date, but you can give any date. When the set button is pressed this object will be changed with the selected date.
+Represent the date object. Default is the current date, but you can give it any date. When the set button is clicked this object will be changed with the selected date.
 
 2) **mondayFirst** (Optional)
 
@@ -69,15 +71,15 @@ You can specify the start date of the datepicker. (`new Date(1989, 1, 26)`)
 
 6) **endDate** (Optional)
 
-Same as startDate, you can specify end date of the datepicker. (`new Date(2024, 1, 26)`)
+Same as startDate, you can specify the end date of the datepicker. (`new Date(2024, 1, 26)`)
 
 7) **disablePastDays** (Optional)
 
-Setting this flag you will be able to disable dates before then current date
+Setting this flag you will be able to disable dates before the current date
 
 8) **disableSwipe** (Optional)
 
-This flag is used to disable swipe events on datepicker
+This flag is used to disable swipe events on the datepicker
 
 9) **disableWeekend** (Optional)
 
@@ -85,21 +87,21 @@ You can disable weekends
 
 10) **disableDates** (Optional)
 
-You can define a list of dates that will be disable in datepicker (`[new Date(2016, 1, 15), new Date(2016, 2, 16), new Date(2016, 3, 17)]`)
+You can define a list of dates that will be disabled in the datepicker (`[new Date(2016, 1, 15), new Date(2016, 2, 16), new Date(2016, 3, 17)]`)
 
 11) **showDatepicker** (Optional)
 
-Using this variable you can make the datepciker to be visible as default. Also you can set this flag in runtime in order to show or hide the datepicker
+Using this variable you can make the datepicker to be visible as default. Also you can set this flag in runtime in order to show or hide the datepicker
 
 12) **showTodayButton** (Optional)
 
 Hide/Show today button. 
 
-`NOTE: If you the current date is disabled by disableWeekend or disableDates the button will automatically disappear`
+`NOTE: If the current date is disabled by disableWeekend or disableDates the button will automatically disappear`
 
 13) **calendarMode** (Optional)
 
-If you set this flag the datepicker will go in calendar mode. Set, cancel and today button will disappear and when a user is selecting a date the callback method will be triggered.
+If you set this flag, the datepicker will go in calendar mode. Set, cancel and today button will disappear and when a user is selecting a date the callback method will be triggered.
 
 14) **hideCancelButton** (Optional)
 
@@ -109,8 +111,15 @@ Hide Cancel button
 
 Hide Set button.
 
-`NOTE: If you hide sey button then when the user select date the datepicker will collapsed and the date will be set`
+`NOTE: If you hide the set button, when the user selects the date, the datepicker will collapse and the date will be set`
 
 16) **callback** (Optional)
 
 Represent the callback function
+
+
+### Thanks ###
+
+[Chris Harrington](https://www.codementor.io/angularjs/tutorial/angularjs-calendar-directives-less-cess-moment-font-awesome) for inspiring me
+
+[deeepu](https://dribbble.com/deeepu) for your Nexus mockup

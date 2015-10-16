@@ -189,6 +189,10 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
             scope.setDate = function () {
                 setDate(scope, parameters);
             };
+            
+            scope.$watch('datepickerObject.date', function () {
+                drawDatepicker(scope);
+            });
 
             scope.$watch('datepickerObject.showDatepicker', function (value) {
                 scope.datepicker.showDatepicker = value;

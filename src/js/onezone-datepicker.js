@@ -189,9 +189,14 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
             scope.setDate = function () {
                 setDate(scope, parameters);
             };
-            
-            scope.$watch('datepickerObject.date', function () {
-                drawDatepicker(scope);
+
+            scope.$watch('datepickerObject.date', function (date) {
+                if (!onezoneDatepickerService.sameDate(date, scope.selectedDate)) {
+                    scope.selectedDate = date;
+                    scope.month = scope.createDatepicker(scope.selectedDate);
+                    scope.currentMonth = angular.copy(date);
+                    scope.selectedYearSlide = onezoneDatepickerService.getActiveYearSlide(scope.yearSlides, scope.currentMonth.getFullYear());
+                }
             });
 
             scope.$watch('datepickerObject.showDatepicker', function (value) {

@@ -33,6 +33,7 @@ Download the file and copy it in your "lib" directory (lib/onezone-datepicker/di
         calendarMode: false,
         hideCancelButton: false,
         hideSetButton: false,
+        highlights: highlights
         callback: function(value){
 			// your code
 		}
@@ -42,7 +43,7 @@ Download the file and copy it in your "lib" directory (lib/onezone-datepicker/di
 
     <onezone-datepicker datepicker-object="onezoneDatepicker">
         <button class="button button-block button-outline button-positive show-onezone-datepicker">
-            {{onezoneDatepicker.date | date:'dd MMMM yyyy'}}
+            {{  "{{onezoneDatepicker.date | date:'dd MMMM yyyy'}\}"   }} 
         </button>
     </onezone-datepicker>
 
@@ -113,7 +114,28 @@ Hide Set button.
 
 `NOTE: If you hide the set button, when the user selects the date, the datepicker will collapse and the date will be set`
 
-16) **callback** (Optional)
+16) **highlights** (Optional)
+
+You can pass a list of objects to highlight dates. Example: 
+
+    [
+        {
+            date: new Date(2016, 1, 7),
+            color: '#8FD4D9',
+            textColor: '#fff'
+        },
+        {
+            date: new Date(2016, 1, 18)
+        },
+        {
+            date: new Date(2016, 1, 19)
+        },
+        {
+            date: new Date(2016, 1, 20)
+        }
+    ]
+
+17) **callback** (Optional)
 
 Represent the callback function
 

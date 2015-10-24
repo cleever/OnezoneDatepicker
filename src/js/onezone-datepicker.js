@@ -26,7 +26,8 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
                     displayFrom: parameters.displayFrom,
                     displayTo: parameters.displayTo,
                     disableWeekend: parameters.disableWeekend,
-                    disableDates: parameters.disableDates
+                    disableDates: parameters.disableDates,
+                    highlights: parameters.highlights
                 };
 
                 return onezoneDatepickerService.createMonth(createMonthParam);

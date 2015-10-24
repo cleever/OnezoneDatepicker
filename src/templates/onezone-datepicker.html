@@ -46,7 +46,7 @@
         </div>
         <div class="row" ng-repeat="week in month" on-swipe-right="swipeRight()" on-swipe-left="swipeLeft()">
             <div class="col" ng-repeat="day in week.days" ng-click="selectDate(day.fullDate, day.isDisabled)">
-                <div class="onezone-datepicker-day" ng-class="{ 'onezone-datepicker-current-day' : day.isToday, 'onezone-datepicker-different-month' : !day.isCurrentMonth, 'onezone-datepicker-active-day' : sameDate(day.fullDate, selectedDate), 'onezone-datepicker-disable-day' : day.isDisabled }">
+                <div class="onezone-datepicker-day" ng-style="{ 'background-color': day.highlight.color, 'color': day.highlight.textColor }" ng-class="{ 'onezone-datepicker-current-day' : day.isToday, 'onezone-datepicker-different-month' : !day.isCurrentMonth, 'onezone-datepicker-active-day' : sameDate(day.fullDate, selectedDate), 'onezone-datepicker-disable-day' : day.isDisabled }">
                     {{day.date}}
                 </div>
             </div>

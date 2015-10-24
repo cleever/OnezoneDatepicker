@@ -66,8 +66,37 @@ angular.module('onezone-datepicker.service', ['ionic'])
             return false;
         }
 
+        function getHighlightColor(highlights, date) {
+            if (angular.isDefined(highlights) && angular.isArray(highlights) && highlights.length > 0) {
+                for (var i = 0; i < highlights.length; i++) {
+                    var highlight = highlights[i];
+                    if (angular.isDefined(highlight.date)) {
+                        if (_sameDate(date, highlight.date)) {
+                            var backgroundColor = '#F48685';
+                            var textColor = '#fff';
+
+                            if (angular.isDefined(highlight.color)) {
+                                backgroundColor = highlight.color;
+                            }
+
+                            if (angular.isDefined(highlight.textColor)) {
+                                textColor = highlight.textColor;
+                            }
+
+                            return {
+                                color: backgroundColor,
+                                textColor: textColor
+                            };
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
         /* Create week */
-        function createWeek(date, currentMonth, disablePastDays, disableWeekend, disableDates, displayFrom, displayTo) {
+        function createWeek(date, currentMonth, disablePastDays, disableWeekend, disableDates, displayFrom, displayTo, highlights) {
             var days = [];
             date = angular.copy(date);
 
@@ -80,7 +109,8 @@ angular.module('onezone-datepicker.service', ['ionic'])
                     day: date.getDay(),
                     isToday: _sameDate(date, new Date()),
                     isCurrentMonth: date.getMonth() === currentMonth.getMonth(),
-                    isDisabled: checkIfIsDisabled(date, disablePastDays, disableWeekend, disableDates, displayFrom, displayTo)
+                    isDisabled: checkIfIsDisabled(date, disablePastDays, disableWeekend, disableDates, displayFrom, displayTo),
+                    highlight: getHighlightColor(highlights, date)
                 });
 
                 date = angular.copy(date);
@@ -100,7 +130,8 @@ angular.module('onezone-datepicker.service', ['ionic'])
                 showDatepicker = false,
                 calendarMode = false,
                 hideCancelButton = false,
-                hideSetButton = false;
+                hideSetButton = false,
+                highlights = [];
 
             /* MONDAY FIRST */
             if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.mondayFirst)) {
@@ -177,15 +208,20 @@ angular.module('onezone-datepicker.service', ['ionic'])
             if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.calendarMode)) {
                 calendarMode = scope.datepickerObject.calendarMode;
             }
-            
+
             /* GET HIDE CANCEL BUTTON FLAG */
             if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.hideCancelButton)) {
                 hideCancelButton = scope.datepickerObject.hideCancelButton;
             }
-            
+
             /* GET HIDE SET BUTTON FLAG */
             if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.hideSetButton)) {
                 hideSetButton = scope.datepickerObject.hideSetButton;
+            }
+
+            /* GET HIGHLIGHTS DATES */
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.highlights) && angular.isArray(scope.datepickerObject.highlights)) {
+                highlights = scope.datepickerObject.highlights;
             }
 
             return {
@@ -203,6 +239,7 @@ angular.module('onezone-datepicker.service', ['ionic'])
                 calendarMode: calendarMode,
                 hideCancelButton: hideCancelButton,
                 hideSetButton: hideSetButton,
+                highlights: highlights,
                 callback: callback
             };
         };
@@ -295,7 +332,7 @@ angular.module('onezone-datepicker.service', ['ionic'])
 
             while (!stopflag) {
                 weeks.push({
-                    days: createWeek(date, createMonthParam.date, createMonthParam.disablePastDays, createMonthParam.disableWeekend, createMonthParam.disableDates, createMonthParam.displayFrom, createMonthParam.displayTo)
+                    days: createWeek(date, createMonthParam.date, createMonthParam.disablePastDays, createMonthParam.disableWeekend, createMonthParam.disableDates, createMonthParam.displayFrom, createMonthParam.displayTo, createMonthParam.highlights)
                 });
 
                 date.setDate(date.getDate() + 7);

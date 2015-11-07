@@ -1,11 +1,15 @@
 # Introduction #
 
 Onezone Datepicker is a flexible datepicker widget that can be used in your Ionic Framework applications.
-
+Git repository: https://bitbucket.org/sergiu_butnarasu/onezonedatepicker
 
 ### Who to use? ###
 
-Download the file and copy it in your "lib" directory (lib/onezone-datepicker/dist/onezone-datepicker.min.js)
+Install onezone-datepicker using bower:
+
+	bower install onezone-datepicker --save
+
+Or download the file and copy it in your "lib" directory (lib/onezone-datepicker/dist/onezone-datepicker.min.js)
 
 1) Include Onezone Datepicker in your index.html file
 

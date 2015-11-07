@@ -18,9 +18,15 @@
   "license": "MIT",
   "homepage": "http://onezone.ro/datepicker/",
   "ignore": [
-    "**/.*",
     "node_modules",
-    "publish"
+    "publish",
+	"src",
+	".gitignore",
+	"bower.json",
+	"gulpfile.js",
+	"licence.txt",
+	"package.json",
+	"README.md"
   ],
   "dependencies": {
     "ionic": ">=1.0.0"

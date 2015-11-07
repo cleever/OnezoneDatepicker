@@ -1,13 +1,11 @@
 {
     "name": "onezone-datepicker",
-    "version": "1.0.0",
-    "private": true,
-    "description": "A datepicker for Ionic Framework",
-    "main": [
-    "./dist/onezone-datepicker.min.js"
-  ],
+    "version": "1.1.0",
+    "private": false,
+	"author": "Sergiu Butnarasu, https://www.sergiubutnarasu.onezone.ro",
+    "description": "Onezone Datepicker - A datepicker for Ionic Framework",
+    "main": ["./dist/onezone-datepicker.min.js"],
     "scripts": {},
-    "author": "https://www.sergiubutnarasu.onezone.ro, sergiu.butnarasu@onezone.ro",
     "license": "MIT",
     "dependencies": {},
     "devDependencies": {

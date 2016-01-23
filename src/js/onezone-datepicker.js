@@ -8,6 +8,8 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
             /* SET SELECTED DATE */
             if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.date) && angular.isDate(scope.datepickerObject.date)) {
                 selectedDate = angular.copy(scope.datepickerObject.date);
+            } else if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.date) && angular.isNumber(scope.datepickerObject.date)) {
+                selectedDate = new Date(scope.datepickerObject.date);
             } else {
                 selectedDate = new Date();
             }
@@ -27,6 +29,7 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
                     displayTo: parameters.displayTo,
                     disableWeekend: parameters.disableWeekend,
                     disableDates: parameters.disableDates,
+                    disableDaysOfWeek: parameters.disableDaysOfWeek,
                     highlights: parameters.highlights
                 };
 
@@ -192,6 +195,10 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
             };
 
             scope.$watch('datepickerObject.date', function (date) {
+                if (angular.isNumber(date)) {
+                    date = new Date(date);
+                }
+
                 if (!onezoneDatepickerService.sameDate(date, scope.selectedDate)) {
                     scope.selectedDate = date;
                     scope.month = scope.createDatepicker(scope.selectedDate);

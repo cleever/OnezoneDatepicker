@@ -94,31 +94,37 @@ You can disable weekends
 
 You can define a list of dates that will be disabled in the datepicker (`[new Date(2016, 1, 15), new Date(2016, 2, 16), new Date(2016, 3, 17)]`)
 
-11) **showDatepicker** (Optional)
+11  **disableDaysOfWeek** (Optional)
+
+You can disable dates by days of week. Example: 
+
+     disableDaysOfWeek: [0,1] // will disable all Sunday and Monday. (0 - Sunday, 1 - Monday)
+
+12) **showDatepicker** (Optional)
 
 Using this variable you can make the datepicker to be visible as default. Also you can set this flag in runtime in order to show or hide the datepicker
 
-12) **showTodayButton** (Optional)
+13) **showTodayButton** (Optional)
 
 Hide/Show today button. 
 
 `NOTE: If the current date is disabled by disableWeekend or disableDates the button will automatically disappear`
 
-13) **calendarMode** (Optional)
+14) **calendarMode** (Optional)
 
 If you set this flag, the datepicker will go in calendar mode. Set, cancel and today button will disappear and when a user is selecting a date the callback method will be triggered.
 
-14) **hideCancelButton** (Optional)
+15) **hideCancelButton** (Optional)
 
 Hide Cancel button
 
-15) **hideSetButton** (Optional)
+16) **hideSetButton** (Optional)
 
 Hide Set button.
 
 `NOTE: If you hide the set button, when the user selects the date, the datepicker will collapse and the date will be set`
 
-16) **highlights** (Optional)
+17) **highlights** (Optional)
 
 You can pass a list of objects to highlight dates. Example: 
 
@@ -139,7 +145,7 @@ You can pass a list of objects to highlight dates. Example:
         }
     ]
 
-17) **callback** (Optional)
+18) **callback** (Optional)
 
 Represent the callback function
 

@@ -24,7 +24,7 @@ angular.module('onezone-datepicker.service', ['ionic'])
             return startDate;
         }
 
-        function checkIfIsDisabled(date, disablePastDays, disableWeekend, disableDates, displayFrom, displayTo) {
+        function checkIfIsDisabled(date, disablePastDays, disableWeekend, disableDates, disableDaysOfWeek, displayFrom, displayTo) {
             var compareDate, currentDate, day, disableDate, today = new Date();
             currentDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
             compareDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -63,6 +63,13 @@ angular.module('onezone-datepicker.service', ['ionic'])
                 }
             }
 
+            if (angular.isDefined(disableDaysOfWeek) && angular.isArray(disableDaysOfWeek)) {
+                var currentDay = date.getDay();
+                if (disableDaysOfWeek.indexOf(currentDay) > -1) {
+                    return true;
+                }
+            }
+
             return false;
         }
 
@@ -96,7 +103,7 @@ angular.module('onezone-datepicker.service', ['ionic'])
         }
 
         /* Create week */
-        function createWeek(date, currentMonth, disablePastDays, disableWeekend, disableDates, displayFrom, displayTo, highlights) {
+        function createWeek(date, currentMonth, disablePastDays, disableWeekend, disableDates, disableDaysOfWeek, displayFrom, displayTo, highlights) {
             var days = [];
             date = angular.copy(date);
 
@@ -109,7 +116,7 @@ angular.module('onezone-datepicker.service', ['ionic'])
                     day: date.getDay(),
                     isToday: _sameDate(date, new Date()),
                     isCurrentMonth: date.getMonth() === currentMonth.getMonth(),
-                    isDisabled: checkIfIsDisabled(date, disablePastDays, disableWeekend, disableDates, displayFrom, displayTo),
+                    isDisabled: checkIfIsDisabled(date, disablePastDays, disableWeekend, disableDates, disableDaysOfWeek, displayFrom, displayTo),
                     highlight: getHighlightColor(highlights, date)
                 });
 
@@ -131,7 +138,8 @@ angular.module('onezone-datepicker.service', ['ionic'])
                 calendarMode = false,
                 hideCancelButton = false,
                 hideSetButton = false,
-                highlights = [];
+                highlights = [],
+                disableDaysOfWeek = [];
 
             /* MONDAY FIRST */
             if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.mondayFirst)) {
@@ -224,6 +232,10 @@ angular.module('onezone-datepicker.service', ['ionic'])
                 highlights = scope.datepickerObject.highlights;
             }
 
+            if (angular.isDefined(scope.datepickerObject) && angular.isDefined(scope.datepickerObject.disableDaysOfWeek) && angular.isArray(scope.datepickerObject.disableDaysOfWeek)) {
+                disableDaysOfWeek = scope.datepickerObject.disableDaysOfWeek;
+            }
+
             return {
                 mondayFirst: mondayFirst,
                 startYear: startYear,
@@ -240,6 +252,7 @@ angular.module('onezone-datepicker.service', ['ionic'])
                 hideCancelButton: hideCancelButton,
                 hideSetButton: hideSetButton,
                 highlights: highlights,
+                disableDaysOfWeek: disableDaysOfWeek,
                 callback: callback
             };
         };
@@ -332,7 +345,7 @@ angular.module('onezone-datepicker.service', ['ionic'])
 
             while (!stopflag) {
                 weeks.push({
-                    days: createWeek(date, createMonthParam.date, createMonthParam.disablePastDays, createMonthParam.disableWeekend, createMonthParam.disableDates, createMonthParam.displayFrom, createMonthParam.displayTo, createMonthParam.highlights)
+                    days: createWeek(date, createMonthParam.date, createMonthParam.disablePastDays, createMonthParam.disableWeekend, createMonthParam.disableDates, createMonthParam.disableDaysOfWeek, createMonthParam.displayFrom, createMonthParam.displayTo, createMonthParam.highlights)
                 });
 
                 date.setDate(date.getDate() + 7);

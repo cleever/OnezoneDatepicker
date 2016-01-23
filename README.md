@@ -32,6 +32,7 @@ Or download the file and copy it in your "lib" directory (lib/onezone-datepicker
         disableSwipe: false,
         disableWeekend: false,
         disableDates: disableDates,
+        disableDaysOfWeek: disableDaysOfWeek,
         showDatepicker: false,
         showTodayButton: true,
         calendarMode: false,

@@ -120,8 +120,12 @@ angular.module('onezone-datepicker.service', ['ionic'])
                     highlight: getHighlightColor(highlights, date)
                 });
 
+                var yesterday = date;
                 date = angular.copy(date);
                 date.setDate(date.getDate() + 1);
+                if (yesterday.getDate() === date.getDate()) {
+                    date.setDate(date.getDate() + 1);
+                }
             }
 
             return days;
@@ -349,6 +353,12 @@ angular.module('onezone-datepicker.service', ['ionic'])
                 });
 
                 date.setDate(date.getDate() + 7);
+
+                var days = (weeks[weeks.length - 1] || {}).days;
+                if (days && (days[days.length - 1] || {}).date === date.getDate()) {
+                    date.setDate(date.getDate() + 1);
+                }
+
                 stopflag = count++ > 1 && monthIndex !== date.getMonth();
                 monthIndex = date.getMonth();
             }

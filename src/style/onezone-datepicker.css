@@ -6,7 +6,7 @@
   color: #3A4351;
   overflow: hidden;
   max-height: 0;
-  transition: max-height .4s; }
+  transition: max-height 0.4s; }
 
 .onezone-datepicker.onezone-datepicker-show {
   max-height: 600px;

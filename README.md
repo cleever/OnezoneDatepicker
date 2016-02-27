@@ -1,3 +1,13 @@
+# Read first #
+
+This is a fork from a great directive onezonedatepicker.
+
+Git repository: https://bitbucket.org/sergiu_butnarasu/onezonedatepicker
+
+That create ability to work with hightlights and disableDates in dynamically way.
+
+Thanks for sergiubutnarasu for the great component.
+
 # Introduction #
 
 Onezone Datepicker is a flexible datepicker widget that can be used in your Ionic Framework applications.
@@ -5,11 +15,11 @@ Git repository: https://bitbucket.org/sergiu_butnarasu/onezonedatepicker
 
 ### Who to use? ###
 
-Install onezone-datepicker using bower:
+Install onezone-datepicker using git
 
-	bower install onezone-datepicker --save
+	git clone https://github.com/cleever/OnezoneDatepicker.git
 
-Or download the file and copy it in your "lib" directory (lib/onezone-datepicker/dist/onezone-datepicker.min.js)
+Copy it in your "lib" directory (lib/onezone-datepicker/dist/onezone-datepicker.min.js)
 
 1) Include Onezone Datepicker in your index.html file
 

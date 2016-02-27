@@ -210,6 +210,14 @@ angular.module('onezone-datepicker', ['ionic', 'onezone-datepicker.templates', '
             scope.$watch('datepickerObject.showDatepicker', function (value) {
                 scope.datepicker.showDatepicker = value;
             });
+            
+            scope.$watchCollection('datepickerObject.highlights', function () { 
+                drawDatepicker(scope); 
+            });
+
+            scope.$watchCollection('datepickerObject.disableDates', function () { 
+                drawDatepicker(scope); 
+            });
 
             element.on("click", function ($event) {
                 var target = $event.target;
